@@ -25,8 +25,6 @@ jobs:
         include:
           - os: ubuntu-latest
             target-suffix: unknown-linux-gnu
-          - os: macos-latest
-            target-suffix: apple-darwin
 
     steps:
       - name: Checkout code
