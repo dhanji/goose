@@ -22,14 +22,16 @@ pre-build = [
      libssl-dev \
      libdbus-1-dev \
      libxcb1-dev
+    """
 ]
-env = {
-  RUSTUP_HOME = "/project/.hermit/rustup",
-  CARGO_HOME = "/project/.hermit/cargo"
-}
+passthrough = [
+  "RUSTUP_HOME",
+  "CARGO_HOME"
+]
+
 volumes = [
-  { host = "bin/rustup", guest = "/project/.hermit/rustup" },
-  { host = "bin/cargo", guest = "/project/.hermit/cargo" }
+  { host = ".hermit/rustup", guest = "/project/.hermit/rustup" },
+  { host = "bin/cargo", guest = "/project/bin/cargo" }
 ]
 
 [target.x86_64-pc-windows-gnu]
