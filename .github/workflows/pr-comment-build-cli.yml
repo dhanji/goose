@@ -49,10 +49,16 @@ jobs:
 
       - name: Set head SHA output
         if: ${{ github.event_name == 'issue_comment' }}
-        id: set_head_sha
+        id: set_head_sha  # ✅ Give this a unique ID
         run: |
           echo '${{ steps.pr_info.outputs.data }}' > pr.json
           HEAD_SHA=$(jq -r .head.sha pr.json)
+
+          if ! [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "❌ Invalid SHA: $HEAD_SHA"
+            exit 1
+          fi
+
           echo "head_sha=$HEAD_SHA" >> $GITHUB_OUTPUT
 
   build-cli:
