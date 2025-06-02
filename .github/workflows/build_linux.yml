@@ -57,12 +57,6 @@ jobs:
           cross --version
 
           echo "Building with explicit PROTOC path..."
-          export CROSS_CONTAINER_OPTS="
-            -v $(pwd)/.hermit/rustup:/root/.rustup:ro \
-            -v $(pwd)/bin:/opt/bin:ro \
-            -e PROTOC=/opt/bin/protoc \
-            -e PATH=/opt/bin:\$PATH \
-            -e RUSTUP_HOME=/root/.rustup"
           cross build --release --target ${TARGET} -p goose-cli -vv
 
           # tar the goose binary as goose-<TARGET>.tar.bz2
