@@ -57,7 +57,7 @@ jobs:
           cross --version
 
           echo "Building with explicit PROTOC path..."
-          PATH=/project/bin:$PATH cross build --release --target ${TARGET} -p goose-cli -vv
+          cross build --release --target ${TARGET} -p goose-cli -vv
 
           # tar the goose binary as goose-<TARGET>.tar.bz2
           cd target/${TARGET}/release
