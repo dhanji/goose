@@ -3,29 +3,15 @@
 #  - release.yml
 #  - canary.yml
 on:
-  workflow_call:
-    inputs:
-      version:
-        required: false
-        default: ""
-        type: string
-      # Let's allow overriding the OSes and architectures in JSON array form:
-      # e.g. '["ubuntu-latest","macos-latest"]'
-      # If no input is provided, these defaults apply.
-      operating-systems:
-        type: string
-        required: false
-        default: '["ubuntu-latest","macos-latest"]'
-      architectures:
-        type: string
-        required: false
-        default: '["x86_64","aarch64"]'
-      ref:
-        type: string
-        required: false
-        default: 'refs/heads/main'
+  push:
+    branches:
+      - lifei/fixed-unstable-build-cli
+  pull_request:
+    branches:
+      - lifei/fixed-unstable-build-cli
+  workflow_dispatch:
 
-name: "Reusable workflow to build CLI"
+name: "CLI Build for Linux"
 
 jobs:
   build-cli:
@@ -34,8 +20,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ${{ fromJson(inputs.operating-systems) }}
-        architecture: ${{ fromJson(inputs.architectures) }}
+        os: ["ubuntu-latest"]
+        architecture: ["x86_64"]
         include:
           - os: ubuntu-latest
             target-suffix: unknown-linux-gnu
@@ -45,14 +31,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
-        with:
-          ref: ${{ inputs.ref }}
-          fetch-depth: 0
+
 
       - name: Update version in Cargo.toml
-        if: ${{ inputs.version != '' }}
         run: |
-          sed -i.bak 's/^version = ".*"/version = "'${{ inputs.version }}'"/' Cargo.toml
+          sed -i.bak 's/^version = ".*"/version = "1.0.24"/' Cargo.toml
           rm -f Cargo.toml.bak
 
       - name: Install cross
@@ -67,6 +50,7 @@ jobs:
         run: |
           source ./bin/activate-hermit
           export TARGET="${{ matrix.architecture }}-${{ matrix.target-suffix }}"
+          rustup default stable
           rustup target add "${TARGET}"
           echo "Building for target: ${TARGET}"
           echo "Rust toolchain info:"
