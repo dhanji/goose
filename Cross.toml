@@ -22,8 +22,8 @@ pre-build = [
      libssl-dev \
      libdbus-1-dev \
      libxcb1-dev
-    . /project/bin/activate-hermit
-    """
+    """,
+    ". /project/bin/activate-hermit"
 ]
 
 [target.x86_64-pc-windows-gnu]
