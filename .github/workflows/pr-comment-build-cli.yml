@@ -41,7 +41,7 @@ jobs:
       - name: Get PR info
         if: ${{ github.event_name == 'issue_comment' }}
         id: pr_info
-        uses: octokit/request-action@v2.x
+        uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d
         with:
           route: GET /repos/${{ github.repository }}/pulls/${{ steps.command.outputs.issue_number }}
         env:
