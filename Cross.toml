@@ -22,7 +22,7 @@ pre-build = [
      libssl-dev \
      libdbus-1-dev \
      libxcb1-dev
-    source /project/bin/activate-hermit
+    . /project/bin/activate-hermit
     """
 ]
 
