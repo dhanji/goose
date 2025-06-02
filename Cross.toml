@@ -30,13 +30,6 @@ passthrough = [
   "PROTOC"
 ]
 
-volumes = [
-  { host = ".hermit/rustup", guest = "/project/.hermit/rustup" },
-  { host = "bin/cargo", guest = "/project/bin/cargo" },
-  { host = "bin/protoc", guest = "/project/bin/protoc" }
-
-]
-
 [target.x86_64-pc-windows-gnu]
 image = "dockcross/windows-static-x64:latest"
 # Enable verbose output for Windows builds
