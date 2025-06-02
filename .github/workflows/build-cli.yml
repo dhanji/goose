@@ -60,6 +60,7 @@ jobs:
         run: |
           source ./bin/activate-hermit
           export TARGET="${{ matrix.architecture }}-${{ matrix.target-suffix }}"
+          rustup default stable
           rustup target add "${TARGET}"
           echo "Building for target: ${TARGET}"
           echo "Rust toolchain info:"
