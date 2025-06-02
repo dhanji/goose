@@ -25,9 +25,7 @@ pre-build = [
     """
 ]
 passthrough = [
-  "RUSTUP_HOME",
-  "CARGO_HOME",
-  "PROTOC"
+  "PATH"
 ]
 
 [target.x86_64-pc-windows-gnu]
