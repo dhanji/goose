@@ -38,28 +38,14 @@ jobs:
           reaction: "eyes"
           allowed_contexts: pull_request
 
-      - name: Get PR info
+      - name: Get PR head SHA with gh
         if: ${{ github.event_name == 'issue_comment' }}
-        id: pr_info
-        uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d
-        with:
-          route: GET /repos/${{ github.repository }}/pulls/${{ steps.command.outputs.issue_number }}
+        id: set_head_sha
+        run: |
+          HEAD_SHA=$(gh pr view ${{ steps.command.outputs.issue_number }} --json headRefOid -q .headRefOid)
+          echo "head_sha=$HEAD_SHA" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set head SHA output
-        if: ${{ github.event_name == 'issue_comment' }}
-        id: set_head_sha  # ✅ Give this a unique ID
-        run: |
-          echo '${{ steps.pr_info.outputs.data }}' > pr.json
-          HEAD_SHA=$(jq -r .head.sha pr.json)
-
-          if ! [[ "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]; then
-            echo "❌ Invalid SHA: $HEAD_SHA"
-            exit 1
-          fi
-
-          echo "head_sha=$HEAD_SHA" >> $GITHUB_OUTPUT
 
   build-cli:
     needs: [trigger-on-command]
