@@ -42,10 +42,11 @@ jobs:
         if: ${{ github.event_name == 'issue_comment' }}
         id: set_head_sha
         run: |
-          HEAD_SHA=$(gh pr view ${{ steps.command.outputs.issue_number }} --json headRefOid -q .headRefOid)
+          HEAD_SHA=$(gh pr view "$ISSUE_NUMBER" --json headRefOid -q .headRefOid)
           echo "head_sha=$HEAD_SHA" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ steps.command.outputs.issue_number }}
 
   build-cli:
     needs: [trigger-on-command]
