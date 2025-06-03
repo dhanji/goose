@@ -43,6 +43,11 @@ jobs:
             target-suffix: apple-darwin
 
     steps:
+      - name: Debug checkout version
+        if: always()
+        run: |
+          echo "Ref: ${{ inputs.ref }}"
+
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
         with:

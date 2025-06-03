@@ -37,20 +37,18 @@ jobs:
           skip_reviews: true
           reaction: "eyes"
           allowed_contexts: pull_request
-          
+
       - name: Debug command output
         if: always()
         run: |
-          echo "event_name: ${{ github.event_name }}"
+          echo "Debug command output"
           echo "command.continue: ${{ steps.command.outputs.continue }}"
           echo "command.issue_number: ${{ steps.command.outputs.issue_number }}"
-          echo "workflow_dispatch pr_number: ${{ github.event.inputs.pr_number }}"
-          echo "Was a PR comment? ${{ github.event.issue.pull_request != null }}"
 
       - name: Get PR head SHA with gh
-        if: ${{ github.event_name == 'issue_comment' }}
         id: set_head_sha
         run: |
+          echo "Get PR head SHA with gh"
           HEAD_SHA=$(gh pr view "$ISSUE_NUMBER" --json headRefOid -q .headRefOid)
           echo "head_sha=$HEAD_SHA" >> $GITHUB_OUTPUT
           echo "head_sha=$HEAD_SHA"
