@@ -5,10 +5,10 @@
 on:
   push:
     branches:
-      - lifei/fixed-unstable-build-cli
+      - lifei/fixed-unstable-build-cli1
   pull_request:
     branches:
-      - lifei/fixed-unstable-build-cli
+      - lifei/fixed-unstable-build-cli1
   workflow_dispatch:
 
 name: "CLI Build for Linux"
