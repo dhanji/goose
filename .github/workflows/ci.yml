@@ -80,6 +80,7 @@ jobs:
 
       - name: Build and Test
         run: |
+          echo "========== In Build and Test step=========="
           gnome-keyring-daemon --components=secrets --daemonize --unlock <<< 'foobar'
           source ../bin/activate-hermit && cargo test
         working-directory: crates
