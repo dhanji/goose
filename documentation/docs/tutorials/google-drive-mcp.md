@@ -19,8 +19,8 @@ This tutorial covers how to add the [Google Drive MCP Server](https://github.com
   <TabItem value="cli" label="Goose CLI">
   **Command**
   ```sh
-  GDRIVE_OAUTH_PATH=/Users/<username>/.config/gcp-oauth.keys.json \ 
-  GDRIVE_CREDENTIALS_PATH=/Users/<username>/.config/.gdrive-server-credentials.json \ 
+  GDRIVE_OAUTH_PATH=$USER_HOME/.config/gcp-oauth.keys.json \ 
+  GDRIVE_CREDENTIALS_PATH=$USER_HOME/.config/.gdrive-server-credentials.json \ 
   npx -y @modelcontextprotocol/server-gdrive auth \
   npx -y @modelcontextprotocol/server-gdrive 
   ```
